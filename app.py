@@ -82,6 +82,29 @@ st.markdown("""
         color: #1a1a2e !important;
     }
 
+    /* ── Ikon & tombol navigasi sidebar (collapse, menu, dll) — hitam ── */
+    [data-testid="stSidebar"] button svg,
+    [data-testid="stSidebar"] button svg path,
+    [data-testid="stSidebar"] button svg polyline,
+    [data-testid="stSidebar"] button svg line,
+    [data-testid="stSidebar"] button svg rect,
+    [data-testid="stSidebarCollapseButton"] svg path,
+    [data-testid="collapsedControl"] svg path,
+    button[data-testid="stBaseButton-headerNoPadding"] svg path,
+    header button svg path,
+    header button svg {
+        fill: #000000 !important;
+        color: #000000 !important;
+        stroke: #000000 !important;
+    }
+
+    /* Tombol collapse sidebar */
+    [data-testid="stSidebarCollapseButton"],
+    [data-testid="collapsedControl"] {
+        color: #000000 !important;
+        opacity: 1 !important;
+    }
+
     /* Teks di dalam expander */
     [data-testid="stExpander"] summary p,
     [data-testid="stExpander"] summary span,
@@ -162,6 +185,38 @@ st.markdown("""
         font-size: 1rem;
         color: #1a1a2e !important;
         margin-bottom: 1rem;
+    }
+
+
+    /* ════════════════════════════════════════
+       6. EXPANDER — paksa light mode (backup anti dark mode)
+    ════════════════════════════════════════ */
+    [data-testid="stExpander"],
+    [data-testid="stExpander"] > details,
+    [data-testid="stExpander"] > details > summary,
+    [data-testid="stExpander"] > details > div {
+        background-color: #ffffff !important;
+        color: #1a1a2e !important;
+    }
+    [data-testid="stExpander"] > details {
+        border: 1px solid #d0d8f0 !important;
+        border-radius: 10px !important;
+        box-shadow: 0 2px 8px rgba(102,126,234,0.08) !important;
+    }
+    [data-testid="stExpander"] > details > summary:hover {
+        background-color: #f0f4ff !important;
+    }
+    [data-testid="stExpander"] details summary p,
+    [data-testid="stExpander"] details summary span,
+    [data-testid="stExpander"] details > div p,
+    [data-testid="stExpander"] details > div span,
+    [data-testid="stExpander"] details > div label {
+        color: #1a1a2e !important;
+    }
+    [data-testid="stExpander"] summary svg,
+    [data-testid="stExpander"] summary svg path {
+        fill: #667eea !important;
+        color: #667eea !important;
     }
 
     /* ════════════════════════════════════════
