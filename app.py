@@ -19,26 +19,120 @@ st.set_page_config(
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
+    /* ════════════════════════════════════════
+       1. BACKGROUND — putih bersih
+    ════════════════════════════════════════ */
+    .stApp,
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="block-container"] {
+        background-color: #ffffff !important;
+    }
+    [data-testid="stSidebar"] {
+        background-color: #f0f4ff !important;
+    }
+
+    /* ════════════════════════════════════════
+       2. WARNA TEKS GLOBAL — gelap agar terbaca di bg putih
+    ════════════════════════════════════════ */
+    /* Teks utama / body */
+    .stApp, .stMarkdown, .stText,
+    [data-testid="stMarkdownContainer"] p,
+    [data-testid="stMarkdownContainer"] li,
+    [data-testid="stMarkdownContainer"] span,
+    [data-testid="stMarkdownContainer"] td,
+    [data-testid="stMarkdownContainer"] th {
+        color: #1a1a2e !important;
+    }
+
+    /* Heading h1–h4 di halaman utama */
+    h1, h2, h3, h4 {
+        color: #1a1a2e !important;
+    }
+
+    /* Label input / widget */
+    label, .stTextArea label, .stTextInput label,
+    [data-testid="stWidgetLabel"] p,
+    [data-testid="stWidgetLabel"] span {
+        color: #1a1a2e !important;
+        font-weight: 600 !important;
+    }
+
+    /* Caption / teks kecil */
+    .stCaption, [data-testid="stCaptionContainer"] p,
+    small, .caption {
+        color: #555577 !important;
+    }
+
+    /* Metric label & value */
+    [data-testid="stMetricLabel"] p,
+    [data-testid="stMetricValue"] div {
+        color: #1a1a2e !important;
+    }
+
+    /* Teks di sidebar */
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] li,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] td,
+    [data-testid="stSidebar"] th,
+    [data-testid="stSidebar"] label {
+        color: #1a1a2e !important;
+    }
+
+    /* Teks di dalam expander */
+    [data-testid="stExpander"] summary p,
+    [data-testid="stExpander"] summary span,
+    details summary p {
+        color: #1a1a2e !important;
+        font-weight: 600 !important;
+    }
+
+    /* Teks tombol */
+    .stButton > button {
+        color: #ffffff !important;
+        background-color: #667eea !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+    }
+    .stButton > button:hover {
+        background-color: #4a5fd4 !important;
+    }
+
+    /* Divider */
+    hr { border-color: #d0d4e8 !important; }
+
+    /* ════════════════════════════════════════
+       3. HEADER BOX — Motivation Letter Analyzer
+    ════════════════════════════════════════ */
     .main-header {
         text-align: center;
         padding: 1.8rem 1rem;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border-radius: 14px;
-        color: white;
+        color: #ffffff !important;
         margin-bottom: 2rem;
+        box-shadow: 0 4px 18px rgba(102,126,234,0.25);
     }
-    .main-header h1 { margin: 0; font-size: 2rem; }
-    .main-header p  { margin: 0.4rem 0 0; opacity: 0.88; font-size: 1rem; }
+    .main-header h1 { margin: 0; font-size: 2rem; color: #ffffff !important; }
+    .main-header p  { margin: 0.4rem 0 0; opacity: 0.92; font-size: 1rem; color: #ffffff !important; }
 
+    /* ════════════════════════════════════════
+       4. SCORE CARD
+    ════════════════════════════════════════ */
     .score-total-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border-radius: 14px;
         padding: 1.8rem 1rem;
         text-align: center;
-        color: white;
+        color: #ffffff !important;
+        box-shadow: 0 4px 18px rgba(102,126,234,0.25);
     }
-    .score-number  { font-size: 4rem; font-weight: 800; line-height: 1; }
-    .score-denom   { font-size: 1.1rem; opacity: 0.8; margin-top: 0.2rem; }
+    .score-number  { font-size: 4rem; font-weight: 800; line-height: 1; color: #ffffff !important; }
+    .score-denom   { font-size: 1.1rem; opacity: 0.85; margin-top: 0.2rem; color: #ffffff !important; }
     .category-pill {
         display: inline-block;
         padding: 0.35rem 1.1rem;
@@ -46,14 +140,18 @@ st.markdown("""
         font-weight: 700;
         font-size: 1rem;
         margin-top: 0.8rem;
-        color: white;
+        color: #ffffff !important;
     }
+
+    /* ════════════════════════════════════════
+       5. FEEDBACK & QUESTION BOX
+    ════════════════════════════════════════ */
     .feedback-box {
-        background: #f8f9fa;
+        background: #f0f4ff;
         border-radius: 8px;
         padding: 0.9rem 1.1rem;
         border-left: 4px solid #667eea;
-        color: #333;
+        color: #1a1a2e !important;
         margin-top: 0.3rem;
     }
     .question-box {
@@ -62,8 +160,26 @@ st.markdown("""
         padding: 1rem 1.2rem;
         border-left: 5px solid #667eea;
         font-size: 1rem;
-        color: #2d2d2d;
+        color: #1a1a2e !important;
         margin-bottom: 1rem;
+    }
+
+    /* ════════════════════════════════════════
+       6. TEXTAREA — biru
+    ════════════════════════════════════════ */
+    textarea {
+        background-color: #ddeeff !important;
+        border: 2px solid #4a90e2 !important;
+        border-radius: 8px !important;
+        color: #1a1a2e !important;
+    }
+    textarea:focus {
+        border-color: #1a6fc4 !important;
+        background-color: #cce4ff !important;
+        box-shadow: 0 0 0 3px rgba(74,144,226,0.25) !important;
+    }
+    textarea::placeholder {
+        color: #6699cc !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -325,8 +441,21 @@ Aplikasi ini mengevaluasi kualitas **motivation letter** secara otomatis menggun
 # ─────────────────────────────────────────────
 # MAIN PAGE
 # ─────────────────────────────────────────────
-st.markdown("""
+import base64, os
+
+def get_logo_b64():
+    logo_path = os.path.join(os.path.dirname(__file__), "bear_logo.png")
+    if os.path.exists(logo_path):
+        with open(logo_path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    return None
+
+logo_b64 = get_logo_b64()
+logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="width:90px;height:90px;border-radius:50%;margin-bottom:0.6rem;border:3px solid rgba(255,255,255,0.5);" /><br/>' if logo_b64 else ""
+
+st.markdown(f"""
 <div class="main-header">
+    {logo_html}
     <h1>📝 Motivation Letter Analyzer</h1>
     <p>Evaluasi kualitas jawaban motivation letter Anda secara instan dengan AI</p>
 </div>
