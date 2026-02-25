@@ -32,31 +32,38 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Sembunyikan HANYA item toolbar (bintang, pensil, github)
-       TANPA menyentuh header secara keseluruhan atau tombol sidebar */
+    /* Sembunyikan toolbar items (bintang, pensil, github, deploy)
+       tapi JANGAN sembunyikan tombol sidebar */
     [data-testid="stToolbar"] { display: none !important; }
     [data-testid="stDecoration"] { display: none !important; }
     [data-testid="stDeployButton"] { display: none !important; }
     #MainMenu { display: none !important; }
 
-    /* ── Pastikan tombol sidebar (hamburger) selalu terlihat ── */
+    /* ── PAKSA tombol sidebar selalu muncul (semua versi Streamlit) ── */
+    /* Streamlit >= 1.30 pakai data-testid ini: */
+    [data-testid="stSidebarCollapseButton"],
+    /* Versi lama: */
     [data-testid="stSidebarNavToggleButton"],
     [data-testid="stSidebarToggle"],
     [data-testid="collapsedControl"],
-    button[aria-label="Toggle navigation"],
-    button[kind="header"] {
+    /* Fallback generic button di area header: */
+    header button {
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
+        z-index: 999999 !important;
     }
 
-    /* Warna ikon tombol sidebar agar terlihat di background terang */
+    /* Warna ikon hamburger agar kontras di background terang */
+    [data-testid="stSidebarCollapseButton"] svg,
     [data-testid="stSidebarNavToggleButton"] svg,
     [data-testid="stSidebarToggle"] svg,
-    [data-testid="collapsedControl"] svg {
+    [data-testid="collapsedControl"] svg,
+    header button svg {
         color: #1e2235 !important;
         fill: #1e2235 !important;
+        stroke: #1e2235 !important;
     }
 
     /* ════════════════════════════════════════
