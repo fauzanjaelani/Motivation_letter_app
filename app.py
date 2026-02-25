@@ -23,8 +23,16 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
 
     /* ════════════════════════════════════════
-       0. SEMBUNYIKAN TOOLBAR KANAN ATAS (bintang, pensil, github)
+       0. HEADER BAR — putih bersih, tanpa hitam
     ════════════════════════════════════════ */
+    header[data-testid="stHeader"],
+    [data-testid="stHeader"] {
+        background-color: #f7f8fc !important;
+        border-bottom: 1px solid #e8ecf4 !important;
+        box-shadow: none !important;
+    }
+
+    /* Sembunyikan toolbar kanan atas (bintang, pensil, github) */
     [data-testid="stToolbar"],
     [data-testid="stDecoration"],
     #MainMenu,
@@ -33,6 +41,40 @@ st.markdown("""
     [data-testid="stHeader"] [data-testid="stToolbar"] {
         display: none !important;
         visibility: hidden !important;
+    }
+
+    /* ════════════════════════════════════════
+       0b. TOMBOL SIDEBAR TOGGLE — tampil & menarik
+    ════════════════════════════════════════ */
+    /* Tombol collapse sidebar (dari dalam sidebar) */
+    [data-testid="stSidebarCollapseButton"] button,
+    /* Tombol expand sidebar (saat sidebar ditutup) */
+    [data-testid="collapsedControl"] button {
+        background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
+        border-radius: 10px !important;
+        width: 38px !important;
+        height: 38px !important;
+        border: none !important;
+        box-shadow: 0 3px 12px rgba(79,110,247,0.35) !important;
+        transition: all 0.2s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    [data-testid="stSidebarCollapseButton"] button:hover,
+    [data-testid="collapsedControl"] button:hover {
+        background: linear-gradient(135deg, #3b5ce4 0%, #6a3ce8 100%) !important;
+        box-shadow: 0 5px 18px rgba(79,110,247,0.5) !important;
+        transform: translateY(-1px) !important;
+    }
+    /* Ikon panah di dalam tombol — putih */
+    [data-testid="stSidebarCollapseButton"] button svg,
+    [data-testid="stSidebarCollapseButton"] button svg path,
+    [data-testid="collapsedControl"] button svg,
+    [data-testid="collapsedControl"] button svg path {
+        fill: #ffffff !important;
+        color: #ffffff !important;
+        stroke: #ffffff !important;
     }
 
     /* ════════════════════════════════════════
@@ -107,23 +149,12 @@ st.markdown("""
         color: #1e2235 !important;
     }
 
-    /* ── Ikon sidebar ── */
+    /* ── Ikon sidebar lainnya (non-collapse) ── */
     [data-testid="stSidebar"] button svg,
-    [data-testid="stSidebar"] button svg path,
-    [data-testid="stSidebarCollapseButton"] svg path,
-    [data-testid="collapsedControl"] svg path,
-    button[data-testid="stBaseButton-headerNoPadding"] svg path,
-    header button svg path,
-    header button svg {
-        fill: #1e2235 !important;
-        color: #1e2235 !important;
-        stroke: #1e2235 !important;
-    }
-
-    [data-testid="stSidebarCollapseButton"],
-    [data-testid="collapsedControl"] {
-        color: #1e2235 !important;
-        opacity: 1 !important;
+    [data-testid="stSidebar"] button svg path {
+        fill: #ffffff !important;
+        color: #ffffff !important;
+        stroke: #ffffff !important;
     }
 
     /* ════════════════════════════════════════
