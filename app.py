@@ -33,74 +33,17 @@ st.markdown("""
     }
 
     /* Sembunyikan toolbar kanan atas (bintang, pensil, github)
-       PENTING: tidak memakai "header [data-testid='stToolbar']" karena
-       di Streamlit Cloud selector itu ikut menyembunyikan tombol sidebar */
+       DAN tombol sidebar bawaan — kita pakai custom toggle sendiri */
     [data-testid="stToolbar"],
     [data-testid="stDecoration"],
-    #MainMenu,
-    .stDeployButton {
-        display: none !important;
-        visibility: hidden !important;
-    }
-
-    /* ════════════════════════════════════════
-       0b. TOMBOL SIDEBAR TOGGLE — universal fix
-       Streamlit Cloud menggunakan berbagai selector
-       tergantung versi, jadi kita cover semua
-    ════════════════════════════════════════ */
-
-    /* ── Wrapper — selalu tampil ── */
     [data-testid="stSidebarCollapseButton"],
     [data-testid="collapsedControl"],
-    [data-testid="stSidebarCollapseButton"] > div,
-    [data-testid="collapsedControl"] > div {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        z-index: 99999 !important;
-    }
-
-    /* ── Styling tombol sidebar toggle ── */
-    [data-testid="stSidebarCollapseButton"] button,
-    [data-testid="collapsedControl"] button,
-    [data-testid="stSidebarCollapseButton"] > button,
-    [data-testid="collapsedControl"] > button,
-    button[data-testid="stBaseButton-headerNoPadding"],
-    button[kind="headerNoPadding"] {
-        background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
-        border-radius: 10px !important;
-        min-width: 36px !important;
-        width: 36px !important;
-        height: 36px !important;
-        border: none !important;
-        box-shadow: 0 3px 14px rgba(79,110,247,0.45) !important;
-        transition: all 0.2s ease !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        cursor: pointer !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        padding: 0 !important;
-    }
-    [data-testid="stSidebarCollapseButton"] button:hover,
-    [data-testid="collapsedControl"] button:hover,
-    button[data-testid="stBaseButton-headerNoPadding"]:hover {
-        background: linear-gradient(135deg, #3b5ce4 0%, #6a3ce8 100%) !important;
-        box-shadow: 0 5px 20px rgba(79,110,247,0.6) !important;
-        transform: translateY(-1px) !important;
-    }
-
-    /* ── Ikon panah tombol sidebar — putih ── */
-    [data-testid="stSidebarCollapseButton"] button svg,
-    [data-testid="stSidebarCollapseButton"] button svg *,
-    [data-testid="collapsedControl"] button svg,
-    [data-testid="collapsedControl"] button svg *,
-    button[data-testid="stBaseButton-headerNoPadding"] svg,
-    button[data-testid="stBaseButton-headerNoPadding"] svg * {
-        fill: #ffffff !important;
-        color: #ffffff !important;
-        stroke: #ffffff !important;
+    #MainMenu,
+    header [data-testid="stToolbar"],
+    .stDeployButton,
+    [data-testid="stHeader"] [data-testid="stToolbar"] {
+        display: none !important;
+        visibility: hidden !important;
     }
 
     /* ════════════════════════════════════════
@@ -379,6 +322,37 @@ st.markdown("""
     hr { border-color: #e8ecf4 !important; }
 
     /* ════════════════════════════════════════
+       11b. CUSTOM SIDEBAR TOGGLE BUTTON
+    ════════════════════════════════════════ */
+    /* Wrapper div tombol toggle — rata kiri, margin bawah tipis */
+    div[data-testid="stButton"]:has(button[key="sidebar_toggle"]) {
+        margin-bottom: 0.3rem !important;
+    }
+    /* Styling tombol toggle itu sendiri */
+    button[data-testid="stBaseButton-secondary"][key="sidebar_toggle"],
+    div[data-testid="stButton"]:has(button[key="sidebar_toggle"]) button {
+        background: transparent !important;
+        border: 1.5px solid #c5cef5 !important;
+        border-radius: 20px !important;
+        color: #4f6ef7 !important;
+        font-size: 0.83rem !important;
+        font-weight: 600 !important;
+        padding: 0.3rem 0.95rem !important;
+        height: auto !important;
+        min-height: 0 !important;
+        box-shadow: none !important;
+        transition: all 0.18s ease !important;
+        letter-spacing: 0.01em !important;
+    }
+    div[data-testid="stButton"]:has(button[key="sidebar_toggle"]) button:hover {
+        background: #f0f3ff !important;
+        border-color: #4f6ef7 !important;
+        color: #3b5ce4 !important;
+        box-shadow: 0 2px 8px rgba(79,110,247,0.15) !important;
+        transform: none !important;
+    }
+
+    /* ════════════════════════════════════════
        12. SIDEBAR STYLE
     ════════════════════════════════════════ */
     [data-testid="stSidebar"] .stMarkdown h2 {
@@ -610,6 +584,10 @@ def bar_chart(aspects):
 # ─────────────────────────────────────────────
 # SIDEBAR
 # ─────────────────────────────────────────────
+# ── Inisialisasi state sidebar ──
+if "sidebar_open" not in st.session_state:
+    st.session_state.sidebar_open = True
+
 with st.sidebar:
     st.markdown("## 📌 Tentang Aplikasi")
     st.markdown("""
@@ -659,6 +637,7 @@ def get_logo_b64():
 logo_b64 = get_logo_b64()
 logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="width:90px;height:90px;border-radius:50%;margin-bottom:0.7rem;border:3px solid rgba(255,255,255,0.45);box-shadow:0 4px 16px rgba(0,0,0,0.15);" /><br/>' if logo_b64 else ""
 
+# ── Header box ──
 st.markdown(f"""
 <div class="main-header">
     {logo_html}
@@ -667,43 +646,22 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# ── JS fallback: paksa tombol sidebar selalu terlihat ──
-st.markdown("""
-<script>
-(function fixSidebarBtn() {
-    function applyStyle() {
-        // Cover semua selector yang mungkin dipakai Streamlit Cloud
-        const selectors = [
-            '[data-testid="stSidebarCollapseButton"] button',
-            '[data-testid="collapsedControl"] button',
-            'button[data-testid="stBaseButton-headerNoPadding"]',
-        ];
-        selectors.forEach(sel => {
-            document.querySelectorAll(sel).forEach(btn => {
-                btn.style.setProperty('background', 'linear-gradient(135deg,#4f6ef7,#7c4dff)', 'important');
-                btn.style.setProperty('border-radius', '10px', 'important');
-                btn.style.setProperty('width', '36px', 'important');
-                btn.style.setProperty('height', '36px', 'important');
-                btn.style.setProperty('border', 'none', 'important');
-                btn.style.setProperty('box-shadow', '0 3px 14px rgba(79,110,247,0.45)', 'important');
-                btn.style.setProperty('visibility', 'visible', 'important');
-                btn.style.setProperty('opacity', '1', 'important');
-                btn.style.setProperty('display', 'flex', 'important');
-                btn.querySelectorAll('svg, svg *').forEach(el => {
-                    el.style.setProperty('fill', '#ffffff', 'important');
-                    el.style.setProperty('color', '#ffffff', 'important');
-                    el.style.setProperty('stroke', '#ffffff', 'important');
-                });
-            });
-        });
-    }
-    // Jalankan saat load dan observasi perubahan DOM
-    applyStyle();
-    const observer = new MutationObserver(applyStyle);
-    observer.observe(document.body, { childList: true, subtree: true });
-})();
-</script>
-""", unsafe_allow_html=True)
+# ── Tombol toggle sidebar ──
+toggle_label = "✕ Tutup Panel Info" if st.session_state.sidebar_open else "☰ Buka Panel Info"
+if st.button(toggle_label, key="sidebar_toggle"):
+    st.session_state.sidebar_open = not st.session_state.sidebar_open
+    st.rerun()
+
+# Kontrol sidebar berdasarkan state
+if not st.session_state.sidebar_open:
+    st.markdown("""
+    <style>
+        [data-testid="stSidebar"] { display: none !important; }
+        [data-testid="stSidebarCollapseButton"] { display: none !important; }
+    </style>
+    """, unsafe_allow_html=True)
+
+
 
 # ── Model tidak ditemukan ──
 if not model_ready:
