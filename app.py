@@ -44,31 +44,38 @@ st.markdown("""
     }
 
     /* ════════════════════════════════════════
-       0b. TOMBOL SIDEBAR TOGGLE — tampil & menarik
+       0b. TOMBOL SIDEBAR TOGGLE — universal fix
+       Streamlit Cloud menggunakan berbagai selector
+       tergantung versi, jadi kita cover semua
     ════════════════════════════════════════ */
 
-    /* Pastikan wrapper tombol selalu terlihat */
+    /* ── Wrapper — selalu tampil ── */
     [data-testid="stSidebarCollapseButton"],
-    [data-testid="collapsedControl"] {
+    [data-testid="collapsedControl"],
+    [data-testid="stSidebarCollapseButton"] > div,
+    [data-testid="collapsedControl"] > div {
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
-        z-index: 9999 !important;
-        position: relative !important;
+        z-index: 99999 !important;
     }
 
-    /* Styling tombol (collapse & expand) */
+    /* ── Styling semua kemungkinan tombol sidebar ── */
     [data-testid="stSidebarCollapseButton"] button,
     [data-testid="collapsedControl"] button,
-    section[data-testid="stSidebar"] button[kind="header"],
-    button[data-testid="stBaseButton-headerNoPadding"] {
+    [data-testid="stSidebarCollapseButton"] > button,
+    [data-testid="collapsedControl"] > button,
+    button[data-testid="stBaseButton-headerNoPadding"],
+    button[kind="headerNoPadding"],
+    header button,
+    [data-testid="stHeader"] button {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
-        min-width: 38px !important;
-        width: 38px !important;
-        height: 38px !important;
+        min-width: 36px !important;
+        width: 36px !important;
+        height: 36px !important;
         border: none !important;
-        box-shadow: 0 3px 14px rgba(79,110,247,0.4) !important;
+        box-shadow: 0 3px 14px rgba(79,110,247,0.45) !important;
         transition: all 0.2s ease !important;
         display: flex !important;
         align-items: center !important;
@@ -76,25 +83,26 @@ st.markdown("""
         cursor: pointer !important;
         visibility: visible !important;
         opacity: 1 !important;
+        padding: 0 !important;
     }
     [data-testid="stSidebarCollapseButton"] button:hover,
     [data-testid="collapsedControl"] button:hover,
-    section[data-testid="stSidebar"] button[kind="header"]:hover,
-    button[data-testid="stBaseButton-headerNoPadding"]:hover {
+    button[data-testid="stBaseButton-headerNoPadding"]:hover,
+    header button:hover {
         background: linear-gradient(135deg, #3b5ce4 0%, #6a3ce8 100%) !important;
-        box-shadow: 0 5px 20px rgba(79,110,247,0.55) !important;
+        box-shadow: 0 5px 20px rgba(79,110,247,0.6) !important;
         transform: translateY(-1px) !important;
     }
 
-    /* Ikon panah — putih */
+    /* ── Semua SVG di dalam tombol sidebar — putih ── */
     [data-testid="stSidebarCollapseButton"] button svg,
     [data-testid="stSidebarCollapseButton"] button svg *,
     [data-testid="collapsedControl"] button svg,
     [data-testid="collapsedControl"] button svg *,
-    section[data-testid="stSidebar"] button[kind="header"] svg,
-    section[data-testid="stSidebar"] button[kind="header"] svg *,
     button[data-testid="stBaseButton-headerNoPadding"] svg,
-    button[data-testid="stBaseButton-headerNoPadding"] svg * {
+    button[data-testid="stBaseButton-headerNoPadding"] svg *,
+    header button svg,
+    header button svg * {
         fill: #ffffff !important;
         color: #ffffff !important;
         stroke: #ffffff !important;
@@ -664,6 +672,45 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+# ── JS fallback: paksa tombol sidebar selalu terlihat ──
+st.markdown("""
+<script>
+(function fixSidebarBtn() {
+    function applyStyle() {
+        // Cover semua selector yang mungkin dipakai Streamlit Cloud
+        const selectors = [
+            '[data-testid="stSidebarCollapseButton"] button',
+            '[data-testid="collapsedControl"] button',
+            'button[data-testid="stBaseButton-headerNoPadding"]',
+            'header button',
+        ];
+        selectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(btn => {
+                btn.style.setProperty('background', 'linear-gradient(135deg,#4f6ef7,#7c4dff)', 'important');
+                btn.style.setProperty('border-radius', '10px', 'important');
+                btn.style.setProperty('width', '36px', 'important');
+                btn.style.setProperty('height', '36px', 'important');
+                btn.style.setProperty('border', 'none', 'important');
+                btn.style.setProperty('box-shadow', '0 3px 14px rgba(79,110,247,0.45)', 'important');
+                btn.style.setProperty('visibility', 'visible', 'important');
+                btn.style.setProperty('opacity', '1', 'important');
+                btn.style.setProperty('display', 'flex', 'important');
+                btn.querySelectorAll('svg, svg *').forEach(el => {
+                    el.style.setProperty('fill', '#ffffff', 'important');
+                    el.style.setProperty('color', '#ffffff', 'important');
+                    el.style.setProperty('stroke', '#ffffff', 'important');
+                });
+            });
+        });
+    }
+    // Jalankan saat load dan observasi perubahan DOM
+    applyStyle();
+    const observer = new MutationObserver(applyStyle);
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+""", unsafe_allow_html=True)
+
 # ── Model tidak ditemukan ──
 if not model_ready:
     st.error("""
@@ -684,17 +731,20 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Tombol Bersihkan saja ──
+# ── Tombol Bersihkan ──
+# Pola yang benar: gunakan key pada text_area agar session_state sinkron
+if 'essay' not in st.session_state:
+    st.session_state['essay'] = ''
+
 col_btn, _ = st.columns([1, 6])
 with col_btn:
-    clear = st.button("🗑️ Bersihkan")
-
-if clear:
-    st.session_state['essay'] = ''
+    if st.button("🗑️ Bersihkan"):
+        st.session_state['essay'] = ''
+        st.rerun()
 
 essay = st.text_area(
     "Tulis jawaban Anda di sini:",
-    value=st.session_state.get('essay', ''),
+    key='essay',
     height=230,
     placeholder="Ketik atau paste jawaban motivation letter Anda...",
 )
