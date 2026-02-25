@@ -46,32 +46,55 @@ st.markdown("""
     /* ════════════════════════════════════════
        0b. TOMBOL SIDEBAR TOGGLE — tampil & menarik
     ════════════════════════════════════════ */
-    /* Tombol collapse sidebar (dari dalam sidebar) */
+
+    /* Pastikan wrapper tombol selalu terlihat */
+    [data-testid="stSidebarCollapseButton"],
+    [data-testid="collapsedControl"] {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 9999 !important;
+        position: relative !important;
+    }
+
+    /* Styling tombol (collapse & expand) */
     [data-testid="stSidebarCollapseButton"] button,
-    /* Tombol expand sidebar (saat sidebar ditutup) */
-    [data-testid="collapsedControl"] button {
+    [data-testid="collapsedControl"] button,
+    section[data-testid="stSidebar"] button[kind="header"],
+    button[data-testid="stBaseButton-headerNoPadding"] {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
+        min-width: 38px !important;
         width: 38px !important;
         height: 38px !important;
         border: none !important;
-        box-shadow: 0 3px 12px rgba(79,110,247,0.35) !important;
+        box-shadow: 0 3px 14px rgba(79,110,247,0.4) !important;
         transition: all 0.2s ease !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        cursor: pointer !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     [data-testid="stSidebarCollapseButton"] button:hover,
-    [data-testid="collapsedControl"] button:hover {
+    [data-testid="collapsedControl"] button:hover,
+    section[data-testid="stSidebar"] button[kind="header"]:hover,
+    button[data-testid="stBaseButton-headerNoPadding"]:hover {
         background: linear-gradient(135deg, #3b5ce4 0%, #6a3ce8 100%) !important;
-        box-shadow: 0 5px 18px rgba(79,110,247,0.5) !important;
+        box-shadow: 0 5px 20px rgba(79,110,247,0.55) !important;
         transform: translateY(-1px) !important;
     }
-    /* Ikon panah di dalam tombol — putih */
+
+    /* Ikon panah — putih */
     [data-testid="stSidebarCollapseButton"] button svg,
-    [data-testid="stSidebarCollapseButton"] button svg path,
+    [data-testid="stSidebarCollapseButton"] button svg *,
     [data-testid="collapsedControl"] button svg,
-    [data-testid="collapsedControl"] button svg path {
+    [data-testid="collapsedControl"] button svg *,
+    section[data-testid="stSidebar"] button[kind="header"] svg,
+    section[data-testid="stSidebar"] button[kind="header"] svg *,
+    button[data-testid="stBaseButton-headerNoPadding"] svg,
+    button[data-testid="stBaseButton-headerNoPadding"] svg * {
         fill: #ffffff !important;
         color: #ffffff !important;
         stroke: #ffffff !important;
@@ -149,12 +172,11 @@ st.markdown("""
         color: #1e2235 !important;
     }
 
-    /* ── Ikon sidebar lainnya (non-collapse) ── */
-    [data-testid="stSidebar"] button svg,
-    [data-testid="stSidebar"] button svg path {
-        fill: #ffffff !important;
-        color: #ffffff !important;
-        stroke: #ffffff !important;
+    /* ── Ikon sidebar lainnya — tidak timpa tombol toggle ── */
+    [data-testid="stSidebar"] svg,
+    [data-testid="stSidebar"] svg path {
+        fill: #4f6ef7 !important;
+        color: #4f6ef7 !important;
     }
 
     /* ════════════════════════════════════════
