@@ -39,6 +39,26 @@ st.markdown("""
     [data-testid="stDeployButton"] { display: none !important; }
     #MainMenu { display: none !important; }
 
+    /* ── Pastikan tombol sidebar (hamburger) selalu terlihat ── */
+    [data-testid="stSidebarNavToggleButton"],
+    [data-testid="stSidebarToggle"],
+    [data-testid="collapsedControl"],
+    button[aria-label="Toggle navigation"],
+    button[kind="header"] {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    /* Warna ikon tombol sidebar agar terlihat di background terang */
+    [data-testid="stSidebarNavToggleButton"] svg,
+    [data-testid="stSidebarToggle"] svg,
+    [data-testid="collapsedControl"] svg {
+        color: #1e2235 !important;
+        fill: #1e2235 !important;
+    }
+
     /* ════════════════════════════════════════
        1. FONT GLOBAL
     ════════════════════════════════════════ */
