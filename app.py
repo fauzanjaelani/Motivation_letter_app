@@ -588,40 +588,41 @@ def bar_chart(aspects):
 if "sidebar_open" not in st.session_state:
     st.session_state.sidebar_open = True
 
-with st.sidebar:
-    st.markdown("## 📌 Tentang Aplikasi")
-    st.markdown("""
-Aplikasi ini mengevaluasi kualitas **motivation letter** secara otomatis menggunakan model Machine Learning.
-
-**Model:** TF-IDF + Random Forest  
-
-
----
-**Aspek yang dinilai:**
-| Aspek | Keterangan |
-|---|---|
-| ✍️ Grammar | Tata bahasa & ejaan |
-| 🔄 Flow | Alur & koherensi |
-| 🏗️ Struktur | Susunan paragraf |
-| 🎯 Relevansi | Kesesuaian jawaban |
-| 🌊 Kedalaman | Detail & refleksi |
-
----
-**Kategori Skor:**
-- 🟢 **Baik** — skor ≥ 75
-- 🟡 **Cukup** — skor 55–74
-- 🔴 **Kurang** — skor < 55
-
----
-**💡 Tips penulisan:**
-- Gunakan bahasa **formal**
-- Bagi menjadi **3–4 paragraf**
-- Ceritakan **pengalaman konkret**
-- Sertakan **angka / nama kegiatan**
-- Gunakan **kata transisi** antar paragraf
-""")
-
-
+if st.session_state.sidebar_open:
+    with st.sidebar:
+        st.markdown("## 📌 Tentang Aplikasi")
+        st.markdown("""
+    Aplikasi ini mengevaluasi kualitas **motivation letter** secara otomatis menggunakan model Machine Learning.
+    
+    **Model:** TF-IDF + Random Forest  
+    
+    
+    ---
+    **Aspek yang dinilai:**
+    | Aspek | Keterangan |
+    |---|---|
+    | ✍️ Grammar | Tata bahasa & ejaan |
+    | 🔄 Flow | Alur & koherensi |
+    | 🏗️ Struktur | Susunan paragraf |
+    | 🎯 Relevansi | Kesesuaian jawaban |
+    | 🌊 Kedalaman | Detail & refleksi |
+    
+    ---
+    **Kategori Skor:**
+    - 🟢 **Baik** — skor ≥ 75
+    - 🟡 **Cukup** — skor 55–74
+    - 🔴 **Kurang** — skor < 55
+    
+    ---
+    **💡 Tips penulisan:**
+    - Gunakan bahasa **formal**
+    - Bagi menjadi **3–4 paragraf**
+    - Ceritakan **pengalaman konkret**
+    - Sertakan **angka / nama kegiatan**
+    - Gunakan **kata transisi** antar paragraf
+    """)
+    
+    
 # ─────────────────────────────────────────────
 # MAIN PAGE
 # ─────────────────────────────────────────────
@@ -652,14 +653,7 @@ if st.button(toggle_label, key="sidebar_toggle"):
     st.session_state.sidebar_open = not st.session_state.sidebar_open
     st.rerun()
 
-# Kontrol sidebar berdasarkan state
-if not st.session_state.sidebar_open:
-    st.markdown("""
-    <style>
-        [data-testid="stSidebar"] { display: none !important; }
-        [data-testid="stSidebarCollapseButton"] { display: none !important; }
-    </style>
-    """, unsafe_allow_html=True)
+
 
 
 
