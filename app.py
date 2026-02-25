@@ -32,19 +32,12 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Sembunyikan toolbar kanan atas (bintang, pensil, github)
-       DAN tombol sidebar bawaan — kita pakai custom toggle sendiri */
-    [data-testid="stToolbar"],
-    [data-testid="stDecoration"],
-    [data-testid="stSidebarCollapseButton"],
-    [data-testid="collapsedControl"],
-    #MainMenu,
-    header [data-testid="stToolbar"],
-    .stDeployButton,
-    [data-testid="stHeader"] [data-testid="stToolbar"] {
-        display: none !important;
-        visibility: hidden !important;
-    }
+    /* Sembunyikan HANYA item toolbar (bintang, pensil, github)
+       TANPA menyentuh header secara keseluruhan atau tombol sidebar */
+    [data-testid="stToolbar"] { display: none !important; }
+    [data-testid="stDecoration"] { display: none !important; }
+    [data-testid="stDeployButton"] { display: none !important; }
+    #MainMenu { display: none !important; }
 
     /* ════════════════════════════════════════
        1. FONT GLOBAL
@@ -116,13 +109,6 @@ st.markdown("""
     [data-testid="stSidebar"] th,
     [data-testid="stSidebar"] label {
         color: #1e2235 !important;
-    }
-
-    /* ── Ikon sidebar lainnya — tidak timpa tombol toggle ── */
-    [data-testid="stSidebar"] svg,
-    [data-testid="stSidebar"] svg path {
-        fill: #4f6ef7 !important;
-        color: #4f6ef7 !important;
     }
 
     /* ════════════════════════════════════════
@@ -320,37 +306,6 @@ st.markdown("""
        11. DIVIDER
     ════════════════════════════════════════ */
     hr { border-color: #e8ecf4 !important; }
-
-    /* ════════════════════════════════════════
-       11b. CUSTOM SIDEBAR TOGGLE BUTTON
-    ════════════════════════════════════════ */
-    /* Wrapper div tombol toggle — rata kiri, margin bawah tipis */
-    div[data-testid="stButton"]:has(button[key="sidebar_toggle"]) {
-        margin-bottom: 0.3rem !important;
-    }
-    /* Styling tombol toggle itu sendiri */
-    button[data-testid="stBaseButton-secondary"][key="sidebar_toggle"],
-    div[data-testid="stButton"]:has(button[key="sidebar_toggle"]) button {
-        background: transparent !important;
-        border: 1.5px solid #c5cef5 !important;
-        border-radius: 20px !important;
-        color: #4f6ef7 !important;
-        font-size: 0.83rem !important;
-        font-weight: 600 !important;
-        padding: 0.3rem 0.95rem !important;
-        height: auto !important;
-        min-height: 0 !important;
-        box-shadow: none !important;
-        transition: all 0.18s ease !important;
-        letter-spacing: 0.01em !important;
-    }
-    div[data-testid="stButton"]:has(button[key="sidebar_toggle"]) button:hover {
-        background: #f0f3ff !important;
-        border-color: #4f6ef7 !important;
-        color: #3b5ce4 !important;
-        box-shadow: 0 2px 8px rgba(79,110,247,0.15) !important;
-        transform: none !important;
-    }
 
     /* ════════════════════════════════════════
        12. SIDEBAR STYLE
@@ -584,45 +539,40 @@ def bar_chart(aspects):
 # ─────────────────────────────────────────────
 # SIDEBAR
 # ─────────────────────────────────────────────
-# ── Inisialisasi state sidebar ──
-if "sidebar_open" not in st.session_state:
-    st.session_state.sidebar_open = True
+with st.sidebar:
+    st.markdown("## 📌 Tentang Aplikasi")
+    st.markdown("""
+Aplikasi ini mengevaluasi kualitas **motivation letter** secara otomatis menggunakan model Machine Learning.
 
-if st.session_state.sidebar_open:
-    with st.sidebar:
-        st.markdown("## 📌 Tentang Aplikasi")
-        st.markdown("""
-    Aplikasi ini mengevaluasi kualitas **motivation letter** secara otomatis menggunakan model Machine Learning.
-    
-    **Model:** TF-IDF + Random Forest  
-    
-    
-    ---
-    **Aspek yang dinilai:**
-    | Aspek | Keterangan |
-    |---|---|
-    | ✍️ Grammar | Tata bahasa & ejaan |
-    | 🔄 Flow | Alur & koherensi |
-    | 🏗️ Struktur | Susunan paragraf |
-    | 🎯 Relevansi | Kesesuaian jawaban |
-    | 🌊 Kedalaman | Detail & refleksi |
-    
-    ---
-    **Kategori Skor:**
-    - 🟢 **Baik** — skor ≥ 75
-    - 🟡 **Cukup** — skor 55–74
-    - 🔴 **Kurang** — skor < 55
-    
-    ---
-    **💡 Tips penulisan:**
-    - Gunakan bahasa **formal**
-    - Bagi menjadi **3–4 paragraf**
-    - Ceritakan **pengalaman konkret**
-    - Sertakan **angka / nama kegiatan**
-    - Gunakan **kata transisi** antar paragraf
-    """)
-    
-    
+**Model:** TF-IDF + Random Forest  
+
+
+---
+**Aspek yang dinilai:**
+| Aspek | Keterangan |
+|---|---|
+| ✍️ Grammar | Tata bahasa & ejaan |
+| 🔄 Flow | Alur & koherensi |
+| 🏗️ Struktur | Susunan paragraf |
+| 🎯 Relevansi | Kesesuaian jawaban |
+| 🌊 Kedalaman | Detail & refleksi |
+
+---
+**Kategori Skor:**
+- 🟢 **Baik** — skor ≥ 75
+- 🟡 **Cukup** — skor 55–74
+- 🔴 **Kurang** — skor < 55
+
+---
+**💡 Tips penulisan:**
+- Gunakan bahasa **formal**
+- Bagi menjadi **3–4 paragraf**
+- Ceritakan **pengalaman konkret**
+- Sertakan **angka / nama kegiatan**
+- Gunakan **kata transisi** antar paragraf
+""")
+
+
 # ─────────────────────────────────────────────
 # MAIN PAGE
 # ─────────────────────────────────────────────
@@ -638,7 +588,6 @@ def get_logo_b64():
 logo_b64 = get_logo_b64()
 logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="width:90px;height:90px;border-radius:50%;margin-bottom:0.7rem;border:3px solid rgba(255,255,255,0.45);box-shadow:0 4px 16px rgba(0,0,0,0.15);" /><br/>' if logo_b64 else ""
 
-# ── Header box ──
 st.markdown(f"""
 <div class="main-header">
     {logo_html}
@@ -646,16 +595,6 @@ st.markdown(f"""
     <p>Evaluasi kualitas jawaban motivation letter Anda secara instan dengan AI</p>
 </div>
 """, unsafe_allow_html=True)
-
-# ── Tombol toggle sidebar ──
-toggle_label = "✕ Tutup Panel Info" if st.session_state.sidebar_open else "☰ Buka Panel Info"
-if st.button(toggle_label, key="sidebar_toggle"):
-    st.session_state.sidebar_open = not st.session_state.sidebar_open
-    st.rerun()
-
-
-
-
 
 # ── Model tidak ditemukan ──
 if not model_ready:
@@ -678,7 +617,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ── Tombol Bersihkan ──
-# Pola yang benar: gunakan key pada text_area agar session_state sinkron
 if 'essay' not in st.session_state:
     st.session_state['essay'] = ''
 
@@ -718,7 +656,6 @@ if analyze:
     st.markdown("---")
     st.markdown("## 📊 Hasil Analisis")
 
-    # ── Skor Total & Statistik ──
     col_total, col_stats = st.columns([1, 2])
 
     with col_total:
@@ -752,7 +689,6 @@ if analyze:
 
     st.markdown("---")
 
-    # ── Visualisasi ──
     col_radar, col_bar = st.columns(2)
     with col_radar:
         st.markdown("#### 🕸️ Radar Chart")
@@ -763,7 +699,6 @@ if analyze:
 
     st.markdown("---")
 
-    # ── Feedback Detail ──
     st.markdown("### 📋 Feedback Detail per Aspek")
 
     aspect_meta = [
@@ -797,7 +732,6 @@ if analyze:
 
     st.markdown("---")
 
-    # ── Rekomendasi ──
     st.markdown("### 💡 Rekomendasi Peningkatan")
 
     names_id = {
