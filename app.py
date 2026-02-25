@@ -32,13 +32,13 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Sembunyikan toolbar kanan atas (bintang, pensil, github) */
+    /* Sembunyikan toolbar kanan atas (bintang, pensil, github)
+       PENTING: tidak memakai "header [data-testid='stToolbar']" karena
+       di Streamlit Cloud selector itu ikut menyembunyikan tombol sidebar */
     [data-testid="stToolbar"],
     [data-testid="stDecoration"],
     #MainMenu,
-    header [data-testid="stToolbar"],
-    .stDeployButton,
-    [data-testid="stHeader"] [data-testid="stToolbar"] {
+    .stDeployButton {
         display: none !important;
         visibility: hidden !important;
     }
@@ -60,15 +60,13 @@ st.markdown("""
         z-index: 99999 !important;
     }
 
-    /* ── Styling semua kemungkinan tombol sidebar ── */
+    /* ── Styling tombol sidebar toggle ── */
     [data-testid="stSidebarCollapseButton"] button,
     [data-testid="collapsedControl"] button,
     [data-testid="stSidebarCollapseButton"] > button,
     [data-testid="collapsedControl"] > button,
     button[data-testid="stBaseButton-headerNoPadding"],
-    button[kind="headerNoPadding"],
-    header button,
-    [data-testid="stHeader"] button {
+    button[kind="headerNoPadding"] {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
         min-width: 36px !important;
@@ -87,22 +85,19 @@ st.markdown("""
     }
     [data-testid="stSidebarCollapseButton"] button:hover,
     [data-testid="collapsedControl"] button:hover,
-    button[data-testid="stBaseButton-headerNoPadding"]:hover,
-    header button:hover {
+    button[data-testid="stBaseButton-headerNoPadding"]:hover {
         background: linear-gradient(135deg, #3b5ce4 0%, #6a3ce8 100%) !important;
         box-shadow: 0 5px 20px rgba(79,110,247,0.6) !important;
         transform: translateY(-1px) !important;
     }
 
-    /* ── Semua SVG di dalam tombol sidebar — putih ── */
+    /* ── Ikon panah tombol sidebar — putih ── */
     [data-testid="stSidebarCollapseButton"] button svg,
     [data-testid="stSidebarCollapseButton"] button svg *,
     [data-testid="collapsedControl"] button svg,
     [data-testid="collapsedControl"] button svg *,
     button[data-testid="stBaseButton-headerNoPadding"] svg,
-    button[data-testid="stBaseButton-headerNoPadding"] svg *,
-    header button svg,
-    header button svg * {
+    button[data-testid="stBaseButton-headerNoPadding"] svg * {
         fill: #ffffff !important;
         color: #ffffff !important;
         stroke: #ffffff !important;
@@ -682,7 +677,6 @@ st.markdown("""
             '[data-testid="stSidebarCollapseButton"] button',
             '[data-testid="collapsedControl"] button',
             'button[data-testid="stBaseButton-headerNoPadding"]',
-            'header button',
         ];
         selectors.forEach(sel => {
             document.querySelectorAll(sel).forEach(btn => {
