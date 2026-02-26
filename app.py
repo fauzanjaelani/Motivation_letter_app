@@ -42,29 +42,40 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* ── Tombol sidebar: styling bersih ── */
-    [data-testid="stExpandSidebarButton"] {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    [data-testid="stExpandSidebarButton"]:hover {
-        background: rgba(79, 110, 247, 0.1) !important;
-        border-radius: 8px !important;
-    }
-
-    /* ── Sembunyikan teks Material Icon (tidak load di Cloud) ── */
+    /* ── Sembunyikan teks Material Icon ── */
     [data-testid="stIconMaterial"] {
         font-size: 0 !important;
         color: transparent !important;
-        overflow: hidden !important;
+        line-height: 0 !important;
     }
 
-    /* ── Ganti dengan ikon panah via pseudo-element ── */
-    [data-testid="stExpandSidebarButton"] span:first-child::before {
+    /* ── Tombol sidebar: selalu terlihat dengan pill berwarna ── */
+    [data-testid="stExpandSidebarButton"] button,
+    [data-testid="stCollapseSidebarButton"] button {
+        background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
+        border-radius: 10px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        border: none !important;
+        box-shadow: 0 3px 12px rgba(79,110,247,0.4) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.2s ease !important;
+    }
+    [data-testid="stExpandSidebarButton"] button:hover,
+    [data-testid="stCollapseSidebarButton"] button:hover {
+        box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* ── Ganti teks dengan ikon ☰ putih ── */
+    [data-testid="stExpandSidebarButton"] button span:first-child::before,
+    [data-testid="stCollapseSidebarButton"] button span:first-child::before {
         content: "☰" !important;
-        font-size: 20px !important;
-        color: #4f6ef7 !important;
+        font-size: 18px !important;
+        color: #ffffff !important;
         display: block !important;
         line-height: 1 !important;
     }
