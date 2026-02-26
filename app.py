@@ -32,38 +32,18 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Sembunyikan toolbar items (bintang, pensil, github, deploy)
-       tapi JANGAN sembunyikan tombol sidebar */
+    /* Sembunyikan HANYA item toolbar (bintang, pensil, github)
+       TANPA menyentuh header secara keseluruhan atau tombol sidebar */
     [data-testid="stToolbar"] { display: none !important; }
     [data-testid="stDecoration"] { display: none !important; }
     [data-testid="stDeployButton"] { display: none !important; }
     #MainMenu { display: none !important; }
 
-    /* ── PAKSA tombol sidebar selalu muncul (semua versi Streamlit) ── */
-    /* Streamlit >= 1.30 pakai data-testid ini: */
-    [data-testid="stSidebarCollapseButton"],
-    /* Versi lama: */
-    [data-testid="stSidebarNavToggleButton"],
-    [data-testid="stSidebarToggle"],
-    [data-testid="collapsedControl"],
-    /* Fallback generic button di area header: */
-    header button {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        z-index: 999999 !important;
-    }
-
-    /* Warna ikon hamburger agar kontras di background terang */
-    [data-testid="stSidebarCollapseButton"] svg,
-    [data-testid="stSidebarNavToggleButton"] svg,
-    [data-testid="stSidebarToggle"] svg,
-    [data-testid="collapsedControl"] svg,
-    header button svg {
-        color: #1e2235 !important;
-        fill: #1e2235 !important;
-        stroke: #1e2235 !important;
+    /* Fix: pastikan ikon tombol sidebar terlihat di Streamlit Cloud
+       (versi baru pakai data-testid stSidebarCollapseButton) */
+    [data-testid="stSidebarCollapseButton"] svg path {
+        stroke: #4f6ef7 !important;
+        fill: #4f6ef7 !important;
     }
 
     /* ════════════════════════════════════════
