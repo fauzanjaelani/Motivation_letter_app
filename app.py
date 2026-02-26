@@ -32,18 +32,22 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Sembunyikan HANYA item toolbar (bintang, pensil, github)
-       TANPA menyentuh header secara keseluruhan atau tombol sidebar */
-    [data-testid="stToolbar"] { display: none !important; }
+    /* Sembunyikan item toolbar KECUALI tombol sidebar
+       Tombol sidebar ada DI DALAM stToolbar, jadi tidak boleh hide seluruhnya */
+    [data-testid="stToolbar"] {
+        background: transparent !important;
+    }
+    /* Sembunyikan anak-anak stToolbar yang bukan tombol sidebar */
+    [data-testid="stToolbar"] > div:last-child { display: none !important; }
     [data-testid="stDecoration"] { display: none !important; }
     [data-testid="stDeployButton"] { display: none !important; }
     #MainMenu { display: none !important; }
 
-    /* Fix: pastikan ikon tombol sidebar terlihat di Streamlit Cloud
-       (versi baru pakai data-testid stSidebarCollapseButton) */
-    [data-testid="stSidebarCollapseButton"] svg path {
-        stroke: #4f6ef7 !important;
-        fill: #4f6ef7 !important;
+    /* Pastikan div pembungkus tombol sidebar tetap tampil */
+    [data-testid="stToolbar"] > div:first-child {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     /* ════════════════════════════════════════
