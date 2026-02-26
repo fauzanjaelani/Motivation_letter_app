@@ -32,12 +32,12 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* ── Sembunyikan Fork, Share, dan menu titik tiga ── */
+    /* ── Sembunyikan Fork, Share, menu titik tiga ── */
     [data-testid="stToolbarActions"] { display: none !important; }
     [data-testid="stMainMenu"]       { display: none !important; }
     [data-testid="stDecoration"]     { display: none !important; }
 
-    /* ── Bersihkan background header ── */
+    /* ── Bersihkan background toolbar ── */
     [data-testid="stToolbar"] {
         background: transparent !important;
     }
@@ -47,17 +47,26 @@ st.markdown("""
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 4px !important;
+    }
+    [data-testid="stExpandSidebarButton"]:hover {
+        background: rgba(79, 110, 247, 0.1) !important;
+        border-radius: 8px !important;
     }
 
-    /* ── Sembunyikan teks icon material, tampilkan hanya via CSS icon ── */
-    [data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"] {
-        font-family: 'Material Icons' !important;
-        font-size: 22px !important;
-        color: #4f6ef7 !important;
+    /* ── Sembunyikan teks Material Icon (tidak load di Cloud) ── */
+    [data-testid="stIconMaterial"] {
+        font-size: 0 !important;
+        color: transparent !important;
         overflow: hidden !important;
-        white-space: nowrap !important;
-        text-indent: 0 !important;
+    }
+
+    /* ── Ganti dengan ikon panah via pseudo-element ── */
+    [data-testid="stExpandSidebarButton"] span:first-child::before {
+        content: "☰" !important;
+        font-size: 20px !important;
+        color: #4f6ef7 !important;
+        display: block !important;
+        line-height: 1 !important;
     }
 
     /* ════════════════════════════════════════
