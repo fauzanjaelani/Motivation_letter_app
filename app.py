@@ -38,9 +38,7 @@ st.markdown("""
     [data-testid="stDecoration"]     { display: none !important; }
     [data-testid="stToolbar"]        { background: transparent !important; }
 
-    /* ══════════════════════════════════════════
-       TOMBOL BUKA SIDEBAR (di header, kiri atas)
-    ══════════════════════════════════════════ */
+    /* ══ TOMBOL BUKA SIDEBAR (header) ══ */
     [data-testid="stExpandSidebarButton"] {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
@@ -49,11 +47,8 @@ st.markdown("""
         min-width: 36px !important;
         border: none !important;
         box-shadow: 0 3px 12px rgba(79,110,247,0.4) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        overflow: hidden !important;
         position: relative !important;
+        overflow: hidden !important;
         cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
@@ -61,11 +56,12 @@ st.markdown("""
         box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
         transform: translateY(-1px) !important;
     }
-    [data-testid="stExpandSidebarButton"] * {
+    /* Sembunyikan HANYA teks icon material di tombol buka sidebar */
+    [data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"] {
         font-size: 0 !important;
         color: transparent !important;
+        display: block !important;
         width: 0 !important;
-        height: 0 !important;
         overflow: hidden !important;
     }
     [data-testid="stExpandSidebarButton"]::after {
@@ -73,18 +69,13 @@ st.markdown("""
         font-size: 18px !important;
         color: #ffffff !important;
         position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
+        top: 50% !important; left: 50% !important;
         transform: translate(-50%, -50%) !important;
         line-height: 1 !important;
         font-family: sans-serif !important;
-        width: auto !important;
-        height: auto !important;
     }
 
-    /* ══════════════════════════════════════════
-       TOMBOL TUTUP SIDEBAR (di dalam stSidebar)
-    ══════════════════════════════════════════ */
+    /* ══ TOMBOL TUTUP SIDEBAR (dalam stSidebar) ══ */
     [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
@@ -93,11 +84,8 @@ st.markdown("""
         min-width: 36px !important;
         border: none !important;
         box-shadow: 0 3px 12px rgba(79,110,247,0.4) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        overflow: hidden !important;
         position: relative !important;
+        overflow: hidden !important;
         cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
@@ -105,11 +93,12 @@ st.markdown("""
         box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
         transform: translateY(-1px) !important;
     }
-    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] * {
+    /* Sembunyikan HANYA teks icon material di tombol tutup sidebar */
+    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] [data-testid="stIconMaterial"] {
         font-size: 0 !important;
         color: transparent !important;
+        display: block !important;
         width: 0 !important;
-        height: 0 !important;
         overflow: hidden !important;
     }
     [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"]::after {
@@ -117,13 +106,10 @@ st.markdown("""
         font-size: 16px !important;
         color: #ffffff !important;
         position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
+        top: 50% !important; left: 50% !important;
         transform: translate(-50%, -50%) !important;
         line-height: 1 !important;
         font-family: sans-serif !important;
-        width: auto !important;
-        height: auto !important;
     }
 
     /* ════════════════════════════════════════
