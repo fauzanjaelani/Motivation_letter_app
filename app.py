@@ -32,93 +32,37 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* ── Sembunyikan Fork, Share, menu titik tiga ── */
-    [data-testid="stToolbarActions"] { display: none !important; }
-    [data-testid="stMainMenu"]       { display: none !important; }
-    [data-testid="stDecoration"]     { display: none !important; }
-    [data-testid="stToolbar"]        { background: transparent !important; }
-
-    /* ══ TOMBOL BUKA SIDEBAR (header) ══ */
-    [data-testid="stExpandSidebarButton"] {
-        background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
-        border-radius: 10px !important;
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        border: none !important;
-        box-shadow: 0 3px 12px rgba(79,110,247,0.4) !important;
-        position: relative !important;
-        overflow: hidden !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-    }
-    [data-testid="stExpandSidebarButton"]:hover {
-        box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
-        transform: translateY(-1px) !important;
-    }
-    /* Sembunyikan HANYA teks icon material di tombol buka sidebar */
-    [data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"] {
-        font-size: 0 !important;
-        color: transparent !important;
-        display: block !important;
-        width: 0 !important;
-        overflow: hidden !important;
-    }
-    [data-testid="stExpandSidebarButton"]::after {
-        content: "☰" !important;
-        font-size: 18px !important;
-        color: #ffffff !important;
-        position: absolute !important;
-        top: 50% !important; left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        line-height: 1 !important;
-        font-family: sans-serif !important;
-    }
-
-    /* ══ TOMBOL TUTUP SIDEBAR (dalam stSidebar) ══ */
-    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] {
-        background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
-        border-radius: 10px !important;
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        border: none !important;
-        box-shadow: 0 3px 12px rgba(79,110,247,0.4) !important;
-        position: relative !important;
-        overflow: hidden !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-    }
-    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"]:hover {
-        box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
-        transform: translateY(-1px) !important;
-    }
-    /* Sembunyikan HANYA teks icon material di tombol tutup sidebar */
-    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] [data-testid="stIconMaterial"] {
-        font-size: 0 !important;
-        color: transparent !important;
-        display: block !important;
-        width: 0 !important;
-        overflow: hidden !important;
-    }
-    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"]::after {
-        content: "✕" !important;
-        font-size: 16px !important;
-        color: #ffffff !important;
-        position: absolute !important;
-        top: 50% !important; left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        line-height: 1 !important;
-        font-family: sans-serif !important;
-    }
+    /* Sembunyikan HANYA item toolbar (bintang, pensil, github)
+       TANPA menyentuh header secara keseluruhan atau tombol sidebar */
+    [data-testid="stToolbar"] { display: none !important; }
+    [data-testid="stDecoration"] { display: none !important; }
+    [data-testid="stDeployButton"] { display: none !important; }
+    #MainMenu { display: none !important; }
 
     /* ════════════════════════════════════════
        1. FONT GLOBAL
     ════════════════════════════════════════ */
     html, body, .stApp, [data-testid="stAppViewContainer"],
     [data-testid="stMain"], [data-testid="block-container"],
-    .stMarkdown, p, span, label, div {
+    .stMarkdown, p, label, div {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    /* span dibatasi agar tidak merusak icon material di expander */
+    [data-testid="stMarkdownContainer"] span,
+    [data-testid="stWidgetLabel"] span,
+    [data-testid="stText"] span,
+    .stButton span,
+    .stCaption span {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    /* Sembunyikan teks icon material di expander summary */
+    [data-testid="stExpander"] summary [data-testid="stIconMaterial"],
+    [data-testid="stExpander"] summary span[translate="no"] {
+        font-size: 0 !important;
+        color: transparent !important;
+        width: 0 !important;
+        overflow: hidden !important;
+        display: inline-block !important;
     }
 
     /* ════════════════════════════════════════
