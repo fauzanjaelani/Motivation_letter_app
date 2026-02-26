@@ -32,22 +32,32 @@ st.markdown("""
         box-shadow: none !important;
     }
 
-    /* Sembunyikan item toolbar KECUALI tombol sidebar
-       Tombol sidebar ada DI DALAM stToolbar, jadi tidak boleh hide seluruhnya */
+    /* ── Sembunyikan Fork, Share, dan menu titik tiga ── */
+    [data-testid="stToolbarActions"] { display: none !important; }
+    [data-testid="stMainMenu"]       { display: none !important; }
+    [data-testid="stDecoration"]     { display: none !important; }
+
+    /* ── Bersihkan background header ── */
     [data-testid="stToolbar"] {
         background: transparent !important;
     }
-    /* Sembunyikan anak-anak stToolbar yang bukan tombol sidebar */
-    [data-testid="stToolbar"] > div:last-child { display: none !important; }
-    [data-testid="stDecoration"] { display: none !important; }
-    [data-testid="stDeployButton"] { display: none !important; }
-    #MainMenu { display: none !important; }
 
-    /* Pastikan div pembungkus tombol sidebar tetap tampil */
-    [data-testid="stToolbar"] > div:first-child {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+    /* ── Tombol sidebar: styling bersih ── */
+    [data-testid="stExpandSidebarButton"] {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 4px !important;
+    }
+
+    /* ── Sembunyikan teks icon material, tampilkan hanya via CSS icon ── */
+    [data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"] {
+        font-family: 'Material Icons' !important;
+        font-size: 22px !important;
+        color: #4f6ef7 !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-indent: 0 !important;
     }
 
     /* ════════════════════════════════════════
