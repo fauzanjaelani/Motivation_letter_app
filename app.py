@@ -38,9 +38,10 @@ st.markdown("""
     [data-testid="stDecoration"]     { display: none !important; }
     [data-testid="stToolbar"]        { background: transparent !important; }
 
-    /* ── Tombol sidebar: background gradient biru ── */
-    [data-testid="stExpandSidebarButton"],
-    [data-testid="stCollapseSidebarButton"] {
+    /* ══════════════════════════════════════════
+       TOMBOL BUKA SIDEBAR (di header, kiri atas)
+    ══════════════════════════════════════════ */
+    [data-testid="stExpandSidebarButton"] {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
         width: 36px !important;
@@ -56,27 +57,64 @@ st.markdown("""
         cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
-    [data-testid="stExpandSidebarButton"]:hover,
-    [data-testid="stCollapseSidebarButton"]:hover {
+    [data-testid="stExpandSidebarButton"]:hover {
         box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
         transform: translateY(-1px) !important;
     }
-
-    /* ── Sembunyikan semua child (teks icon material) ── */
-    [data-testid="stExpandSidebarButton"] *,
-    [data-testid="stCollapseSidebarButton"] * {
+    [data-testid="stExpandSidebarButton"] * {
         font-size: 0 !important;
         color: transparent !important;
         width: 0 !important;
         height: 0 !important;
         overflow: hidden !important;
     }
-
-    /* ── Inject ikon ☰ via pseudo-element pada tombol langsung ── */
-    [data-testid="stExpandSidebarButton"]::after,
-    [data-testid="stCollapseSidebarButton"]::after {
+    [data-testid="stExpandSidebarButton"]::after {
         content: "☰" !important;
         font-size: 18px !important;
+        color: #ffffff !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        line-height: 1 !important;
+        font-family: sans-serif !important;
+        width: auto !important;
+        height: auto !important;
+    }
+
+    /* ══════════════════════════════════════════
+       TOMBOL TUTUP SIDEBAR (di dalam stSidebar)
+    ══════════════════════════════════════════ */
+    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] {
+        background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
+        border-radius: 10px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        border: none !important;
+        box-shadow: 0 3px 12px rgba(79,110,247,0.4) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+        position: relative !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"]:hover {
+        box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
+        transform: translateY(-1px) !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"] * {
+        font-size: 0 !important;
+        color: transparent !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stBaseButton-headerNoPadding"]::after {
+        content: "✕" !important;
+        font-size: 16px !important;
         color: #ffffff !important;
         position: absolute !important;
         top: 50% !important;
