@@ -36,22 +36,11 @@ st.markdown("""
     [data-testid="stToolbarActions"] { display: none !important; }
     [data-testid="stMainMenu"]       { display: none !important; }
     [data-testid="stDecoration"]     { display: none !important; }
+    [data-testid="stToolbar"]        { background: transparent !important; }
 
-    /* ── Bersihkan background toolbar ── */
-    [data-testid="stToolbar"] {
-        background: transparent !important;
-    }
-
-    /* ── Sembunyikan teks Material Icon ── */
-    [data-testid="stIconMaterial"] {
-        font-size: 0 !important;
-        color: transparent !important;
-        line-height: 0 !important;
-    }
-
-    /* ── Tombol sidebar: selalu terlihat dengan pill berwarna ── */
-    [data-testid="stExpandSidebarButton"] button,
-    [data-testid="stCollapseSidebarButton"] button {
+    /* ── Tombol sidebar: background gradient biru ── */
+    [data-testid="stExpandSidebarButton"],
+    [data-testid="stCollapseSidebarButton"] {
         background: linear-gradient(135deg, #4f6ef7 0%, #7c4dff 100%) !important;
         border-radius: 10px !important;
         width: 36px !important;
@@ -62,22 +51,41 @@ st.markdown("""
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        overflow: hidden !important;
+        position: relative !important;
+        cursor: pointer !important;
         transition: all 0.2s ease !important;
     }
-    [data-testid="stExpandSidebarButton"] button:hover,
-    [data-testid="stCollapseSidebarButton"] button:hover {
+    [data-testid="stExpandSidebarButton"]:hover,
+    [data-testid="stCollapseSidebarButton"]:hover {
         box-shadow: 0 5px 18px rgba(79,110,247,0.6) !important;
         transform: translateY(-1px) !important;
     }
 
-    /* ── Ganti teks dengan ikon ☰ putih ── */
-    [data-testid="stExpandSidebarButton"] button span:first-child::before,
-    [data-testid="stCollapseSidebarButton"] button span:first-child::before {
+    /* ── Sembunyikan semua child (teks icon material) ── */
+    [data-testid="stExpandSidebarButton"] *,
+    [data-testid="stCollapseSidebarButton"] * {
+        font-size: 0 !important;
+        color: transparent !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    /* ── Inject ikon ☰ via pseudo-element pada tombol langsung ── */
+    [data-testid="stExpandSidebarButton"]::after,
+    [data-testid="stCollapseSidebarButton"]::after {
         content: "☰" !important;
         font-size: 18px !important;
         color: #ffffff !important;
-        display: block !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
         line-height: 1 !important;
+        font-family: sans-serif !important;
+        width: auto !important;
+        height: auto !important;
     }
 
     /* ════════════════════════════════════════
